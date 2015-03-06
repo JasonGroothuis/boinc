@@ -45,14 +45,18 @@ $cpu_prefs = array(
     tra("Usage limits"),
     new PREF_NUM(
         tra("Use at most"),
+        // xgettext:no-php-format
         tra("Keep some CPUs free for other applications. Example: 75% means use 6 cores on an 8-core CPU."),
         "max_ncpus_pct",
+        // xgettext:no-php-format
         new NUM_SPEC(tra("% of the CPUs"), 1, 100, 100)
     ),
     new PREF_NUM(
         tra("Use at most"),
+        // xgettext:no-php-format
         tra("Suspend/resume computing every few seconds to reduce CPU temperature and energy usage. Example: 75% means compute for 3 seconds, wait for 1 second, and repeat."),
         "cpu_usage_limit",
+        // xgettext:no-php-format
         new NUM_SPEC(tra("% of CPU time"), 1, 100, 100)
     ),
     tra("When to suspend"),
@@ -144,6 +148,7 @@ $disk_prefs = array(
         tra("Use no more than"),
         tra("Limit the percentage of disk space used by BOINC on the volume where it stores data."),
         "disk_max_used_pct",
+        // xgettext:no-php-format
         new NUM_SPEC(tra("% of total"), 0, 100, $dp->disk_max_used_pct)
     ),
 );
@@ -153,12 +158,14 @@ $mem_prefs = array(
         tra("When computer is in use, use at most"),
         tra("Limit the memory used by BOINC when you're using the computer."),
         "ram_max_used_busy_pct",
+        // xgettext:no-php-format
         new NUM_SPEC(tra("%"), 1, 100, 50)
     ),
     new PREF_NUM(
         tra("When computer is not in use, use at most"),
         tra("Limit the memory used by BOINC when you're not using the computer."),
         "ram_max_used_idle_pct",
+        // xgettext:no-php-format
         new NUM_SPEC(tra("%"), 1, 100, 90)
     ),
     new PREF_BOOL(
@@ -171,6 +178,7 @@ $mem_prefs = array(
         tra("Page/swap file: use at most"),
         tra("Limit the swap space (page file) used by BOINC."),
         "vm_max_used_pct",
+        // xgettext:no-php-format
         new NUM_SPEC(tra("%"), 1, 100, 75)
     ),
 );
@@ -461,7 +469,7 @@ function prefs_show_global($prefs) {
 }
 
 function subset_name($subset) {
-    if ($subset == "global") return tra("Computing");
+    if ($subset == "global") return tra("computing");
     return PROJECT;
 }
 

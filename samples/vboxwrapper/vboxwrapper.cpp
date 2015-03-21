@@ -121,7 +121,7 @@ void read_fraction_done(double& frac_done, VBOX_VM& vm) {
 bool completion_file_exists(VBOX_VM& vm) {
     char path[MAXPATHLEN];
     sprintf(path, "shared/%s", vm.completion_trigger_file.c_str());
-    if (boinc_file_exists(path)) return true;
+    if (vm.completion_trigger_file.size() && boinc_file_exists(path)) return true;
     return false;
 }
 
@@ -151,7 +151,7 @@ void read_completion_file_info(unsigned long& exit_code, bool& is_notice, string
 bool temporary_exit_file_exists(VBOX_VM& vm) {
     char path[MAXPATHLEN];
     sprintf(path, "shared/%s", vm.temporary_exit_trigger_file.c_str());
-    if (boinc_file_exists(path)) return true;
+    if (vm.temporary_exit_trigger_file.size() && boinc_file_exists(path)) return true;
     return false;
 }
 
@@ -845,6 +845,7 @@ int main(int argc, char** argv) {
         vboxlog_msg("  This might be a temporary problem and so this job will be rescheduled for another time.");
         pVM->reset_vm_process_priority();
         pVM->poweroff();
+        pVM->dump_hypervisor_logs(true);
         boinc_temporary_exit(86400,
             "VM Hypervisor failed to enter an online state in a timely fashion."
         );

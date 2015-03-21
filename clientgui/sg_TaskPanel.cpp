@@ -1113,9 +1113,7 @@ void CSimpleTaskPanel::UpdateTaskSelectionList(bool reskin) {
     for(j = 0; j < count; ++j) {
         selData = (TaskSelectionData*)m_TaskSelectionCtrl->GetClientData(j);
         ctrlResult = selData->result;
-        if (Suspended() || ctrlResult->suspended_via_gui || ctrlResult->project_suspended_via_gui) {
-            newIcon = suspendedIcon;
-        } else if (isRunning(ctrlResult)) {
+        if (isRunning(ctrlResult)) {
             newIcon = runningIcon;
         } else if (ctrlResult->scheduler_state == CPU_SCHED_PREEMPTED) {
             newIcon = waitingIcon;
@@ -1150,25 +1148,28 @@ void CSimpleTaskPanel::UpdateTaskSelectionList(bool reskin) {
 
 
 bool CSimpleTaskPanel::isRunning(RESULT* result) {
-    bool outcome = false;
 
     // It must be scheduled to be running
-    if ( result->scheduler_state == CPU_SCHED_SCHEDULED ) {
-        // If either the project or task have been suspended, then it cannot be running
-        if ( !result->suspended_via_gui && !result->project_suspended_via_gui ) {
-            CC_STATUS status;
-            CMainDocument*      pDoc = wxGetApp().GetDocument();
-            wxASSERT(pDoc);
-            
-            pDoc->GetCoreClientStatus(status);
-            // Make sure that the core client isn't global suspended for some reason
-            if ( status.task_suspend_reason == 0 || status.task_suspend_reason == SUSPEND_REASON_CPU_THROTTLE ) {
-                outcome = true;
-            }
-        }
+    if ( result->scheduler_state != CPU_SCHED_SCHEDULED ) {
+        return false;
     }
+    // If either the project or task have been suspended, then it cannot be running
+    if (result->suspended_via_gui || result->project_suspended_via_gui ) {
+        return false;
+    }
+    CC_STATUS status;
+    CMainDocument*      pDoc = wxGetApp().GetDocument();
+    wxASSERT(pDoc);
 
-    return outcome;
+    pDoc->GetCoreClientStatus(status);
+    // Make sure that the core client isn't global suspended for some reason
+    if (status.task_suspend_reason == 0 || status.task_suspend_reason == SUSPEND_REASON_CPU_THROTTLE) {
+        return true;
+    }
+    if (result->active_task_state == PROCESS_EXECUTING) {
+        return true;
+    }
+    return false;
 }
 
 

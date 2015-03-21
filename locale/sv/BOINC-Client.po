@@ -5,16 +5,16 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: boinc\n"
+"Project-Id-Version: BOINC\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-15 22:25-0700\n"
-"PO-Revision-Date: 2015-02-09 01:07+0000\n"
-"Last-Translator: Rom Walton <romw@romwnet.org>\n"
-"Language-Team: Swedish (Sweden) (http://www.transifex.com/projects/p/boinc/language/sv_SE/)\n"
+"PO-Revision-Date: 2015-03-13 15:48+0000\n"
+"Last-Translator: Rom Walton\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/boinc/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv_SE\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: acct_mgr.cpp:450 acct_mgr.cpp:459
